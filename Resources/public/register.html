@@ -4,36 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./styles/styles.css">
+    <style src="styles.css"></style>
 </head>
-<body class="bg-slate-100">
-    <div class="text-center text-4xl mt-6 font-bold text-blue-500">friendHub</div>
-    <form class="max-w-md mx-auto mt-2 p-6 bg-white rounded-lg shadow-lg">
-        <h2 class="text-lg mb-6 text-center">Register for FriendHub</h2>
-        <div class="mb-4">
-            <input
-                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="uname" type="text" name="uname" placeholder="Username"
-            >
-        </div>
-        <div class="mb-4">
-            <input
-                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="pword" type="password" name="pword" placeholder="Password">
-        </div>
-        <div class="mb-6">
-            <input
-                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="pword2" type="password" name="pword2" placeholder="Re-enter Password"
-            >
-        </div>
-        <div class="flex flex-col gap-3">
-            <button class="bg-blue-500 hover:bg-blue-700 hover:rounded-xl text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto" type="submit" name="buttonVar" value="register">
-                Sign Up
-            </button>
-            <a href="/login" class="mx-auto text-blue-700 hover:text-blue-500">Already have an account?</a>
-        </div>
+<body>
+    <form action="processReg" method="POST">
+        Username: <br />
+        <input type="text" name="uname"><br />
+        Password: <br />
+        <input type="text" name="pword"><br />
+        Re-enter Password: <br />
+        <input type="text" name="pword2"><br />
+        <button type="submit" name="buttonVar" value="register">Register</button>
     </form>
 </body>
-
 </html>
