@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
     "body-parser": "^1.19.2",
     "cookie-parser": "^1.4.6",
@@ -15,7 +16,7 @@
   },
   "scripts": {
     "build": "postcss src/input.css -o public/styles/style.css",
-    "start": "node index.js",
+    "start": "node app.js",
     "test": "echo \"Error: no tests specified\" && exit 1"
   }
 }
