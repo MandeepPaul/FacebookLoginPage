@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "postcss src/input.css -o public/styles/style.css",
-    "start": "node index.js",
+    "start": "node app.js",
     "test": "echo \"Error: no tests specified\" && exit 1"
   }
 }
