@@ -54,7 +54,8 @@ function checklogin(req, res, user, password) {
       res.redirect(303, "/home");
     } else {
       res.redirect(
-        303,"/?error=Username or password do not match our records. Please try again or register if you are a new user!"
+        303,
+        "/?error=Username or password do not match our records. Please try again or register if you are a new user!"
       );
     }
   });
@@ -70,47 +71,54 @@ app.post("/processLogin", function (req, res) {
 });
 
 app.post("/processReg", async function (req, res) {
-    const user = new SecureLoginUsers(req.body);
-  
-    const passwordsMatch = req.body.pword.trim() === req.body.pword2.trim();
-    const isPasswordEmpty = req.body.pword === "";
-  
-    // Check if the passwords match and are not empty
-    if (passwordsMatch && !isPasswordEmpty) {
-      user.pass = md5(req.body.pword);
-  
-      try {
-        // Find the number of users in the database
-        const userCount = await SecureLoginUsers.countDocuments({});
-  
-        console.log("The number of users was " + userCount);
-  
-        // Find all users in the database
-        const resultArray = await SecureLoginUsers.find({});
-  
-        // Check if the provided username already exists in the database
-        const usernameExists = resultArray.some((element) => element.uname === req.body.uname);
-  
-        if (usernameExists) {
-          // Username already exists, send an error message
-          return res.redirect("/register?error=User already exist! Try with a different username");
-        }
-  
-        // Username is unique, save the new user to the database
-        user.save((err, toDB) => {
-          if (err) {
-            return res.status(400).json({ error: err });
-          }
-          req.session.userName = req.body.uname;
-          res.redirect(303, "/home");
-        });
-      } catch (err) {
-        return res.status(400).json({ error: err });
+  const user = new SecureLoginUsers(req.body);
+
+  const passwordsMatch = req.body.pword.trim() === req.body.pword2.trim();
+  const isPasswordEmpty = req.body.pword === "";
+
+  // Check if the passwords match and are not empty
+  if (passwordsMatch && !isPasswordEmpty) {
+    user.pass = md5(req.body.pword);
+
+    try {
+      // Find the number of users in the database
+      const userCount = await SecureLoginUsers.countDocuments({});
+
+      console.log("The number of users was " + userCount);
+
+      // Find all users in the database
+      const resultArray = await SecureLoginUsers.find({});
+
+      // Check if the provided username already exists in the database
+      const usernameExists = resultArray.some(
+        (element) => element.uname === req.body.uname
+      );
+
+      if (usernameExists) {
+        // Username already exists, send an error message
+        return res.redirect(
+          "/register?error=User already exist! Try with a different username"
+        );
       }
-    } else {
-      res.redirect(303, "/register?error=Password do not match! Please try again.");
+
+      // Username is unique, save the new user to the database
+      user.save((err, toDB) => {
+        if (err) {
+          return res.status(400).json({ error: err });
+        }
+        req.session.userName = req.body.uname;
+        res.redirect(303, "/home");
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err });
     }
-}); 
+  } else {
+    res.redirect(
+      303,
+      "/register?error=Password do not match! Please try again."
+    );
+  }
+});
 
 app.get("/home", function (req, res) {
   if (req.session.userName) {
