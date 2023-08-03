@@ -5,7 +5,7 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
   credentials = require("./credentials"),
-  routes = require("./routes/route");
+  routes = require("./routes/route")(app);
 
 // load env variables
 const dotenv = require("dotenv");

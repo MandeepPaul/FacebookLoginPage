@@ -1,13 +1,15 @@
-const express = require("express");
-const router = express.Router();
-const fs = require("fs");
+const express = require("express"),
+  router = express.Router(),
+  fs = require("fs"),
+  md5 = require("md5"),
+  path = require("path");
 
 // Import the SecureLoginUsers model if needed
 const SecureLoginUsers = require("../models/uCredentials");
 
-module.exports = function () {
+module.exports = function (app) {
   router.get(["/", "/login"], function (req, res) {
-    res.sendFile(__dirname + "/public/login.html");
+    res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 
   function checklogin(req, res, user, password) {
@@ -91,7 +93,7 @@ module.exports = function () {
 
   router.get("/home", function (req, res) {
     if (req.session.userName) {
-      res.sendFile(__dirname + "/public/home.html");
+      res.sendFile(path.join(__dirname, "../public/home.html"));
     } else {
       res.redirect("/login?error=Please login to access the home page");
     }
@@ -99,18 +101,20 @@ module.exports = function () {
 
   router.get("/page2", function (req, res) {
     if (req.session.userName) {
-      res.sendFile(__dirname + "/public/page2.html");
+      res.sendFile(path.join(__dirname, "../public/page2.html"));
     } else {
       res.redirect("/login?error=Please login to access the second page");
     }
   });
 
   router.get("/register", function (req, res) {
-    res.sendFile(__dirname + "/public/register.html");
+    res.sendFile(path.join(__dirname, "../public/register.html"));
   });
 
   router.get("/logout", function (req, res) {
     delete req.session.userName;
     res.redirect(303, "/");
   });
+
+  return router;
 };
