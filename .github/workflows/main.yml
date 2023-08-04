@@ -15,12 +15,12 @@ jobs:
 
       - name: Build static website
         run: |
-          cd resources
+          cd Resources
           npm install
-          npm run build 
+          npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./Resources/public 
+          publish_dir: ./Resources/public
